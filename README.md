@@ -7,8 +7,7 @@ a) 下载安装NDK
 下载NDK之后直接解压缩就可以使用了。在Windows下使用的时候需要用到Cygwin。在这里我自己使用Linux编译类库。
 注意：
     1. 试了WIN7 + cgywin 遇到只能生成静态库，一直不能生成动态so 库，问题原因未找到。
-    2.试了VM + ubuntu-15.10-desktop-amd64 + ffmpeg-3.4.1.tar   编辑也不成功，中间遇到缺少头文件 <perf_event.h>，原因未知。 
-    3.试VM+ ubuntukylin-17.04-desktop-amd64 + ffmpeg-3.4.1.tar 最新版，可以编成功.
+    2. 试VM+ ubuntukylin-17.04-desktop-amd64 + ffmpeg-3.4.1.tar 最新版，可以编成功.
 
 
 b) 修改FFmpeg的configure
