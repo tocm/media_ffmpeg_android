@@ -1,0 +1,65 @@
+LOCAL_PATH := $(call my-dir)
+MY_PORT_PATH := $(LOCAL_PATH)/ffmpeg_player/src/android
+MY_L_LIBS_PATH := $(LOCAL_PATH)/ffmpeg_player/src/android/ffmpeg/libs
+$(info ${MY_PORT_PATH})
+$(info ${MY_L_LIBS_PATH})
+
+# FFmpeg library
+include $(CLEAR_VARS)
+LOCAL_MODULE := avcodec
+LOCAL_SRC_FILES := $(MY_L_LIBS_PATH)/libavcodec-57.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := avdevice
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libavdevice-57.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := avfilter
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libavfilter-6.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := avformat
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libavformat-57.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := avutil
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libavutil-55.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := postproc
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libpostproc-54.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := swresample
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libswresample-2.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := swscale
+LOCAL_SRC_FILES := ${MY_L_LIBS_PATH}/libswscale-4.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+#for JNI
+include $(CLEAR_VARS)
+LOCAL_MODULE := mediaJni
+LOCAL_ARM_MODE := arm
+LOCAL_LDLIBS := -lz -llog -landroid
+LOCAL_CPP_EXTENSION := cpp
+LOCAL_SHARED_LIBRARIES := avcodec avdevice avfilter avformat avutil postproc swresample swscale
+
+MY_INCLUDES_HEADER := $(MY_PORT_PATH)
+MY_INCLUDES_HEADER += $(MY_PORT_PATH)/ffmpeg/include
+
+
+MY_SRC_FILES := $(MY_PORT_PATH)/media_player_jni.c
+
+LOCAL_C_INCLUDES := $(MY_INCLUDES_HEADER)
+LOCAL_SRC_FILES := ${MY_SRC_FILES}
+include $(BUILD_SHARED_LIBRARY)
+#$(call import-module,cpufeatures)
